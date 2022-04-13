@@ -1,0 +1,15 @@
+﻿@model RecipeList;
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>Recipe List</h1>
+@foreach (Recipe recipe in Model.Recipes)
+{
+    <partial name="_RecipeHeader" model=recipe />
+}
+
+Add Recipe
+@Html.LabelFor(model => model.RecipeBeingAdded.Title, "Recipe Title"); @Html.TextBoxFor(model => model.RecipeBeingAdded.Title);
+
+
