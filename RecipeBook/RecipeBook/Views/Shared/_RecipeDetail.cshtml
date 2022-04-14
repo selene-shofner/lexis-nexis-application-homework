@@ -1,0 +1,10 @@
+﻿@model Recipe
+
+<partial name="_RecipeHeader" model=Model />
+@foreach(Ingredient ingredient in Model.Ingredients)
+{
+    <partial name="_Ingredient" model=ingredient />
+}
+<div class="instructions">
+    Instructions: <div class="instructionsValue">@Model.Instructions</div>
+</div>

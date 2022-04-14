@@ -1,0 +1,29 @@
+﻿@model Recipe
+
+Add New Recipe<br />
+@Html.LabelFor(model => model.Title, "Recipe Title"); @Html.TextBoxFor(model => model.Title, new {  onInput="updatePreview();", onChange="updatePreview();", id="AddTitle" });  <br />
+@Html.LabelFor(model => model.Description, "Description"); @Html.TextBoxFor(model => model.Description, new { onInput="updatePreview();", id="AddDescription"});  <br />
+@Html.LabelFor(model => model.ImageUrl, "Image URL");@Html.TextBoxFor(model => model.ImageUrl, new { onInput="updatePreview();", id="AddImageUrl"});  <br />
+@Html.LabelFor(model => model.Instructions, "Instructions"); <br />
+@Html.TextBoxFor(model => model.Instructions, new { onInput="updatePreview();", id="AddInstructions"});<br />
+@Html.LabelFor(model => model.Instructions)<br />
+<br />
+<br />
+Preview:<br />
+<div id="addRecipePreview">
+<partial name="_RecipeDetail" model=@Model />
+</div>
+
+<script>
+    function updatePreview()
+    {
+        //In a production environment I'd probably build a separate event for all of these.
+        $('#addRecipePreview>.title').text($('#AddTitle').val());
+        $('#addRecipePreview>.description').text($('#AddDescription').val());
+        $('#addRecipePreview>.instructions').text($('#AddInstructions').val());
+
+        var newImageUrl = $('#AddImageUrl').val();
+        newImageUrl = !!newImageUrl? newImageUrl : "./favicon.ico";
+        $('#addRecipePreview>.imageUrl').attr('src', newImageUrl);
+    }
+</script>

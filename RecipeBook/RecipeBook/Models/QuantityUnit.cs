@@ -8,9 +8,10 @@
         Milliliter,
         Liter,
         Gallon,
-        Grams,
-        Cups,
+        Gram,
+        Cup,
         Ounce,
+        Pound, 
         Quart,
 
         /// <summary>

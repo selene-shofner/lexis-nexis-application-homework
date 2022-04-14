@@ -1,4 +1,5 @@
-﻿@model RecipeList;
+﻿@using RecipeBook.Models
+@model RecipeList;
 @{
     ViewData["Title"] = "View";
 }
@@ -9,7 +10,9 @@
     <partial name="_RecipeHeader" model=recipe />
 }
 
-Add Recipe
-@Html.LabelFor(model => model.RecipeBeingAdded.Title, "Recipe Title"); @Html.TextBoxFor(model => model.RecipeBeingAdded.Title);
+<a onclick="$('#add').toggle()">Add Recipe</a>
+<div id="add">
+    <partial name="_AddRecipe" model=Model.RecipeBeingAdded />
+</div>
 
 

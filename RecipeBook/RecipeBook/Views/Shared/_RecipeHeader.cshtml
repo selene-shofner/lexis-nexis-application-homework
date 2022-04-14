@@ -1,4 +1,8 @@
 ﻿@model Recipe
 
-@Html.LabelFor(model => model.Title);
-<img src="@Model.ImageUrl" />
+<div class="title"> @Model.Title </div>
+<br />
+<div class="description"> @Model.Description </div>
+<br />
+<img src="@(!string.IsNullOrWhiteSpace(Model.ImageUrl) ? Model.ImageUrl : "./favicon.ico")" , class="imageUrl" width="100" />
+<br />

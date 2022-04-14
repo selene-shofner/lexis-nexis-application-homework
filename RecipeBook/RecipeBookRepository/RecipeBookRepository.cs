@@ -43,6 +43,21 @@ namespace RecipeBook.Repository
             return string.IsNullOrWhiteSpace(substringSearchTerm) || (!string.IsNullOrWhiteSpace(recipeValue) && recipeValue.Contains(substringSearchTerm));
         }
 
+        public Recipe AddRecipe(Recipe newRecipe)
+        {
+            newRecipe.Id = default;
+            foreach (RecipeIngredient ingredient in newRecipe.Ingredients)
+            {
+                ingredient.Id = default;
+                Context.RecipeIngredients.Add(ingredient);
+            }
+
+            Context.Recipes.Add(newRecipe);
+            Context.SaveChanges();
+
+            return newRecipe;
+        }
+
         //private IQueryable<Recipe> AddSearchTerm(
     }
 }
