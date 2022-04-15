@@ -1,8 +1,8 @@
 ﻿@model Recipe
-
-<div class="title"> @Model.Title </div>
-<br />
-<div class="description"> @Model.Description </div>
-<br />
-<img src="@(!string.IsNullOrWhiteSpace(Model.ImageUrl) ? Model.ImageUrl : "./favicon.ico")" , class="imageUrl" width="100" />
-<br />
+<div class="recipeHeader">
+    <div class="row"><div class="title col-6">@Model.Title</div></div>
+    <div class="row recipeBody">
+        <div class="description col-4">@Model.Description</div>
+        <div class="col-2 recipeImage"><img src="@(!string.IsNullOrWhiteSpace(Model.ImageUrl) ? Model.ImageUrl : "./favicon.ico")" class="img-fluid" /></div>
+    </div>
+</div>

@@ -24,8 +24,6 @@ namespace RecipeBook.Controllers
         // GET: RecipeController
         public ActionResult Index()
         {
-            RecipeList.SearchTerms.TitleSubstring = "Title";
-
             var domainSearchTerms = Mapper.Map<Models.SearchTerms, Repository.SearchTerms>(RecipeList.SearchTerms);
 
             var domainRecipes = Repository.GetRecipes(domainSearchTerms);
@@ -105,6 +103,7 @@ namespace RecipeBook.Controllers
         [HttpPost]
         public ActionResult AddStartingDataToDatabase()
         {
+            string resultMessage = "Starting data loaded!\r\n";
             const string HOT_DOG_TITLE = "Boiled Hot Dog";
             Repository.Entities.Recipe existingHotDogRecipe = Repository.GetRecipes(new Repository.SearchTerms { TitleSubstring = HOT_DOG_TITLE })
                 .FirstOrDefault();
@@ -129,6 +128,11 @@ namespace RecipeBook.Controllers
                 };
 
                 AddRecipe(newHotDogRecipe);
+                resultMessage += $"Added {HOT_DOG_TITLE} recipe.\r\n";
+            }
+            else
+            {
+                resultMessage += $"{HOT_DOG_TITLE} recipe already exists.\r\n";
             }
 
             const string CHOCOLATE_COVERED_STRAWBERRIES_TITLE = "Chocolate Covered Strawberries";
@@ -156,7 +160,13 @@ namespace RecipeBook.Controllers
                     }
                 };
 
+
                 AddRecipe(newStrawberriesRecipe);
+                resultMessage += $"Added {CHOCOLATE_COVERED_STRAWBERRIES_TITLE} recipe.\r\n";
+            }
+            else
+            {
+                resultMessage += $"{CHOCOLATE_COVERED_STRAWBERRIES_TITLE} recipe already exists.\r\n";
             }
 
             const string DIJON_MUSHROOM_PORK_CHOPS_TITLE = "Pork Chops In Creamy Dijon Mushroom Sauce";
@@ -195,13 +205,14 @@ namespace RecipeBook.Controllers
                 };
 
                 AddRecipe(newDijonMushroomPorkChopsRecipe);
+                resultMessage += $"Added {DIJON_MUSHROOM_PORK_CHOPS_TITLE} recipe.\r\n";
+            }
+            else
+            {
+                resultMessage += $"{DIJON_MUSHROOM_PORK_CHOPS_TITLE} recipe already exists.\r\n";
             }
 
-
-
-
-            //TODO: Return something better
-            return new ObjectResult("Starting data loaded!");
+            return new ObjectResult(resultMessage);
         }
 
         private Recipe AddRecipe(Recipe recipe)

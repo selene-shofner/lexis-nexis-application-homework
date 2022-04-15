@@ -1,5 +1,7 @@
 ﻿@using RecipeBook.Models
-@model RecipeList;
+@model RecipeList
+
+
 @{
     ViewData["Title"] = "View";
 }
@@ -8,11 +10,38 @@
 @foreach (Recipe recipe in Model.Recipes)
 {
     <partial name="_RecipeHeader" model=recipe />
+    <partial name="_RecipeControls" model=recipe />
 }
 
-<a onclick="$('#add').toggle()">Add Recipe</a>
-<div id="add">
+<div id="actionResults">
+</div>
+
+<div class="panel">
+    <div class="panel-heading">Action Menu</div>
+    <div class="btn-group-vertical actionMenu">
+        <a onclick="$('#add').toggle()" class="btn btn-primary">Add Recipe</a>
+        <a id="preloadDataButton" class="btn btn-primary">Preload Data</a>
+        @*<a id="Reload" onclick="$('reloadData').toggle()" class=".btn-primary">Reload</a>*@
+    </div>
+</div>
+<div id="add" class="hide">
     <partial name="_AddRecipe" model=Model.RecipeBeingAdded />
 </div>
 
 
+<script type="text/javascript">
+        window.addEventListener("DOMContentLoaded", function(){
+             $("#preloadDataButton").on("click", preloadData)
+    });
+
+        function preloadData(){
+            $("#actionResults").html("");
+            $.post("Recipe/AddStartingDataToDatabase", function(result){
+                $("#actionResults").html(result.replace(/\r\n/g, "<br />"));
+            });
+        }
+
+    @*function reloadData(){
+
+        }*@
+</script>

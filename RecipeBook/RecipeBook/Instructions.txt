@@ -31,3 +31,12 @@ Viewing an individual recipe should be done via either a MVC view or Razor Page.
 At least one operation should be done via Ajax using jQuery
 Site should use Bootstrap
 Queries should use Entity Framework
+
+
+TODO
+* Implement all recipe buttons
+* Implement ingredients
+* Review MVC principles
+* Add filtering UI
+* The right borders aren't lining up for the second recipe header row for some reason?
+   -   They don't line up perfectly between the first and third at some resolutions either
