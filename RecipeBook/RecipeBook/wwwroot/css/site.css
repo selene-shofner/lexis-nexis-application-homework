@@ -56,3 +56,15 @@ body {
     .recipeControls > .btn {
         margin: 1px 2px 0 2px;
     }
+
+.recipeDetailLeft {
+    background-color: beige;
+    border-left: 3px solid khaki;
+    border-right: 3px solid khaki;
+}
+
+.recipeDetailRight {
+    background-color: beige;
+    border: 3px solid khaki;
+    border-left: none
+}

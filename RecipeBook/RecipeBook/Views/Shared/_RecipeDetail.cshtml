@@ -1,10 +1,22 @@
 ﻿@model Recipe
 
-<partial name="_RecipeHeader" model=Model />
-@foreach(Ingredient ingredient in Model.Ingredients)
-{
-    <partial name="_Ingredient" model=ingredient />
-}
-<div class="instructions">
-    Instructions: <div class="instructionsValue">@Model.Instructions</div>
+
+<div class="row">
+    <partial name="_RecipeHeader" model=Model />
+    <div class="ingredientsList recipeDetailLeft col-6">
+        Ingredients: <br />
+        @foreach (Ingredient ingredient in Model.Ingredients)
+        {
+            <partial name="_Ingredient" model=ingredient />
+        }
+    </div>
+    <div class="instructions col-6 recipeDetailRight">
+        Instructions: <div class="instructionsValue" id="recipe-@Model.Id-Instructions">Loading...</div>
+    </div>
 </div>
+
+<script type="text/javascript">
+        window.addEventListener("DOMContentLoaded", function(){
+             $("#recipe-@Model.Id-Instructions").html(replaceWindowsNewlinesWithHtmlLinebreaks("@Model.Instructions"));
+    });
+</script>

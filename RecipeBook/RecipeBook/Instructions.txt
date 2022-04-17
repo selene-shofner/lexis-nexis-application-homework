@@ -23,20 +23,28 @@ Recipes have the following
                                                              v.      Instructions
 
 Recipes should be persisted to the database
-List of recipes
-Viewing the list of recipes should be done with ASP.NET Core via MVC view, Razor Page or Ajax call using jQuery. Scaffolding should not be used.
-Recipes should be able to be filtered.
++ List of recipes
++ Viewing the list of recipes should be done with ASP.NET Core via MVC view, Razor Page or Ajax call using jQuery. Scaffolding should not be used.
++ Recipes should be able to be filtered.
 Individual Recipe
 Viewing an individual recipe should be done via either a MVC view or Razor Page.
 At least one operation should be done via Ajax using jQuery
-Site should use Bootstrap
-Queries should use Entity Framework
++ Site should use Bootstrap
++ Queries should use Entity Framework
 
 
 TODO
-* Implement all recipe buttons
-* Implement ingredients
+* Implement all recipe buttons (frontend, test backend)
+    - Should I re-do Open to be the AJAX call?
+* Implement adding ingredients (frontend)
+* Consider prompting before allowing the user to delete a recipe
+* Finish restyling the filter control
 * Review MVC principles
-* Add filtering UI
+    - Am I using "Shared" correctly?
+    - Should I have more Controller endpoints?
+    - Should RecipeList be what it is?
+    - When I'm more awake: did RecipeNavigationConfig make any sense at all?
+    - Frankly to my sleepy brain "At least one operation should be done via Ajax using jQuery" and "use MVC!" feel at odds xD
+*   Double-check CSS and Javascript adherence to best practices (I didn't 
 * The right borders aren't lining up for the second recipe header row for some reason?
    -   They don't line up perfectly between the first and third at some resolutions either

@@ -1,7 +1,8 @@
-﻿<div class="row">
+﻿@model RecipeNavigationConfig
+<div class="row">
     <div class="btn-group recipeControls col-6">
-        <div class="btn btn-secondary">Open</div>
-        <div class="btn btn-secondary">Edit</div>
-        <div class="btn btn-danger">Delete</div>
+        @Html.ActionLink("Open","Details","Recipe",new { Model.Recipe.Id },new { @class = "btn btn-secondary" })
+        @Html.ActionLink("Edit","Edit","Recipe",new { Model.Recipe.Id },new { @class = "btn btn-secondary" })
+        @Html.ActionLink("Delete","Delete","Recipe",new { Model.Recipe.Id },new { @class = "btn btn-danger" })
     </div>
 </div>

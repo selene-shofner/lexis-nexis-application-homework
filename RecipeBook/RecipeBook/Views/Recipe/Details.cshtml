@@ -1,0 +1,9 @@
+﻿@model Recipe
+
+@{
+    RecipeNavigationConfig navigationConfig = new RecipeNavigationConfig { NavigateToSingleOrList = NavigateToSingleOrList.List, Recipe = Model };
+}
+
+@*This lives in a partial because it's also previewed on the Add control.*@
+<partial name="_RecipeDetail" model=@Model />
+<partial name="_RecipeControls" model=navigationConfig />

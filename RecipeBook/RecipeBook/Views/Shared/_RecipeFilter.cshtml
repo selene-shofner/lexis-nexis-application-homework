@@ -1,0 +1,93 @@
+﻿@model SearchTerms
+
+
+<div class="col-3">Filter</div>
+@using (Html.BeginForm(FormMethod.Get, true, htmlAttributes: new { @class = "", id = "searchForm" }))
+{
+    <div class="input-group mb-3">
+        <label for="Model.TitleSubstring">Title</label>
+        <span class="input-group-text">*</span>
+        @Html.TextBoxFor(terms => terms.TitleSubstring, new {@class="form-control", id="titleSubstringInput", onChange="filterChanged()"})
+        <span class="input-group-text">*</span>
+    </div>
+
+    <label for="Model.DescriptionSubstring">Description</label>
+    <div class="input-group mb-3">
+        <span class="input-group-text">*</span>
+        @Html.TextBoxFor(terms => terms.DescriptionSubstring, new {@class="form-control", id="descriptionSubstringInput", onChange="filterChanged()"})
+        <span class="input-group-text">*</span>
+    </div>
+
+    <label for="Model.IngredientNameSubstring">Ingredient Name</label>
+    <div class="input-group mb-3">
+        <span class="input-group-text">*</span>
+        @Html.TextBoxFor(terms => terms.IngredientNameSubstring, new {@class="form-control", id="ingredientNameSubstringInput", onChange="filterChanged()"})
+        <span class="input-group-text">*</span>
+    </div>
+
+    <label for="Model.InstructionsSubstring">Instructions</label>
+    <div class="input-group mb-3">
+        <span class="input-group-text">*</span>
+        @Html.TextBoxFor(terms => terms.InstructionsSubstring, new {@class="form-control", id="instructionsSubstringInput", onChange="filterChanged()"})
+        <span class="input-group-text">*</span>
+    </div>
+
+    <input type="submit" name="Index" value="Search" class="btn btn-primary" id="filterSearchButton" />
+    <input type="reset" class="btn btn-secondary" />
+    <button type="button" id="clearFilter" class="btn btn-secondary" onclick="clearForm($('#searchForm'))">Clear</button>
+}
+
+<script type="text/javascript">
+
+    var titleSubstringInput;
+    var descriptionSubstringInput;
+    var ingredientNameSubstringInput;
+    var instructionsSubstringInput;
+    var originalSearchTerms;
+
+
+    window.addEventListener("DOMContentLoaded", function(){
+        titleSubstringInput             =  $("#titleSubstringInput");
+        descriptionSubstringInput       =  $("#descriptionSubstringInput");
+        ingredientNameSubstringInput    =  $("#ingredientNameSubstringInput");
+        instructionsSubstringInput      =  $("#instructionsSubstringInput");
+
+
+        originalSearchTerms = {
+            titleSubstring: titleSubstringInput.val(),
+            descriptionSubstring: descriptionSubstringInput.val(),
+            ingredientNameSubstring: ingredientNameSubstringInput.val(),
+            instructionsSubstring: instructionsSubstringInput.val(),
+        };
+
+
+    });
+
+
+    function isSearchTermUnchanged (){
+        var titleSubstringChanged = titleSubstringInput == originalSearchTerms.titleSubstring;
+        var descriptionSubstringChanged =  $("#descriptionSubstringInput") == originalSearchTerms.descriptionSubstring;
+        var ingredientNameSubstringChanged =  $("#ingredientNameSubstringInput")== originalSearchTerms.ingredientNameSubstring;
+        var instructionsSubstringChanged =  $("#instructionsSubstringInput")== originalSearchTerms.instructionsSubstring;
+        return !titleSubstringChanged && !descriptionSubstringChanged && !ingredientNameSubstringChanged && !instructionsSubstringChanged;
+    }
+
+    function filterChanged(){
+        var searchButton = $("#filterSearchButton");
+        if(isSearchTermUnchanged){
+            searchButton.name = "Refresh";
+        }
+        else
+        {
+            searchButton.name = "Search";
+        }
+    }
+
+    //This method is reusable and if I were to build more code I might put this in a library script.
+    //From accepted answer on https://stackoverflow.com/questions/6028576/how-to-clear-a-form
+    function clearForm(form)
+    {
+        form.find(':radio, :checkbox').val('').removeAttr('checked').end();
+        form.find('textArea, :text, select').val('');
+    }
+</script>

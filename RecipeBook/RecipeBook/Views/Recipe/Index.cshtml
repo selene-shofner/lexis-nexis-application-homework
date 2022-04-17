@@ -6,11 +6,19 @@
     ViewData["Title"] = "View";
 }
 
+<partial name="_RecipeFilter" model=Model.SearchTerms />
+
 <h1>Recipe List</h1>
 @foreach (Recipe recipe in Model.Recipes)
 {
-    <partial name="_RecipeHeader" model=recipe />
-    <partial name="_RecipeControls" model=recipe />
+    RecipeNavigationConfig navigationConfig = new RecipeNavigationConfig { NavigateToSingleOrList = NavigateToSingleOrList.List, Recipe = recipe };
+    <div class="row">
+        <div class="col-1" style="display: inline-block; background-image: url('paperBindings.png'); background-repeat: repeat-y; width: 5px;"></div>
+        <div class="col-11">
+            <partial name="_RecipeHeader" model=recipe />
+            <partial name="_RecipeControls" model=navigationConfig />
+        </div>
+    </div>
 }
 
 <div id="actionResults">
@@ -37,7 +45,7 @@
         function preloadData(){
             $("#actionResults").html("");
             $.post("Recipe/AddStartingDataToDatabase", function(result){
-                $("#actionResults").html(result.replace(/\r\n/g, "<br />"));
+                $("#actionResults").html(replaceWindowsNewlinesWithHtmlLinebreaks(result));
             });
         }
 

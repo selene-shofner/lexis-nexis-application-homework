@@ -30,6 +30,13 @@ builder.Services.AddAutoMapper(config =>
     config.CreateMap<RecipeBook.Models.Recipe, RecipeBook.Repository.Entities.Recipe>();
     config.CreateMap<RecipeBook.Models.Ingredient, RecipeBook.Repository.Entities.RecipeIngredient>();
     config.CreateMap<RecipeBook.Models.QuantityUnit, RecipeBook.Repository.Entities.QuantityUnit>();
+
+    //This silly section is used to set up some very terse and convenient data copying.
+    config.CreateMap<RecipeBook.Repository.Entities.Recipe, RecipeBook.Repository.Entities.Recipe>()
+        .ForMember(recipe => recipe.Id, opt => opt.Ignore())
+        .ForMember(recipe => recipe.Ingredients, opt => opt.Ignore());
+        ;
+
 });
 
 

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 using RecipeBook.Models;
@@ -21,48 +20,58 @@ namespace RecipeBook.Controllers
             Mapper = mapper;
         }
 
+        //using #nullable to make the optional-ness of the searchTerms parameter clearer
+#nullable enable
         // GET: RecipeController
-        public ActionResult Index()
+        public ActionResult Index(Models.SearchTerms? searchTerms)
         {
-            var domainSearchTerms = Mapper.Map<Models.SearchTerms, Repository.SearchTerms>(RecipeList.SearchTerms);
+            var domainSearchTerms = Mapper.Map<Models.SearchTerms, Repository.SearchTerms>(searchTerms ?? new Models.SearchTerms());
 
             var domainRecipes = Repository.GetRecipes(domainSearchTerms);
             RecipeList.Recipes = domainRecipes.Select(recipe => Mapper.Map<Repository.Entities.Recipe, Models.Recipe>(recipe));
             return View(RecipeList);
         }
+#nullable disable
 
         // GET: RecipeController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var domainRecipe = Repository.GetRecipe(id);
+            var viewRecipe = Mapper.Map<Repository.Entities.Recipe, Models.Recipe>(domainRecipe);
+            return View(viewRecipe);
         }
 
+#warning I've got both this and an AJAX-y frontend, pick one and delete the other
         // GET: RecipeController/Create
-        public ActionResult Create()
+        public ActionResult Create(Recipe? recipe)
         {
-            return View();
-        }
+            if (recipe == null)
+            {
+                return View(recipe);
+            }
 
-        // POST: RecipeController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var viewRecipe = Mapper.Map<Models.Recipe, Repository.Entities.Recipe>(recipe);
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: RecipeController/Edit/5
-        public ActionResult Edit(int id)
+        //using #nullable to make the optional-ness of the searchTerms parameter clearer
+#nullable enable
+
+        public ActionResult Edit(Recipe? recipe)
         {
-            return View();
+            if (recipe == null)
+            {
+                return View();
+            }
+
+            Repository.EditRecipe(recipe.Id, Mapper.Map<Models.Recipe, Repository.Entities.Recipe>(recipe));
+
+            return RedirectToAction(nameof(Index));
+
         }
+#nullable disable
 
         // POST: RecipeController/Edit/5
         [HttpPost]
@@ -79,25 +88,11 @@ namespace RecipeBook.Controllers
             }
         }
 
-        // GET: RecipeController/Delete/5
+        [HttpPost]
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: RecipeController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            Repository.DeleteRecipe(id);
+            return new OkResult();
         }
 
         [HttpPost]
