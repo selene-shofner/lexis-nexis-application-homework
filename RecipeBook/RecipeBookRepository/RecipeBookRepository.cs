@@ -43,7 +43,9 @@ namespace RecipeBook.Repository
         }
         public Recipe? GetRecipe(int id)
         {
-            return Context.Recipes.SingleOrDefault(recipe => recipe.Id == id);
+            return Context.Recipes
+                .Include(recipe => recipe.Ingredients)
+                .SingleOrDefault(recipe => recipe.Id == id);
         }
 
         public Recipe AddRecipe(Recipe newRecipe)
@@ -124,8 +126,5 @@ namespace RecipeBook.Repository
                     .Any(newIngredient => DoIngredientsMatch(sourceIngredient, newIngredient)));
 
         }
-
-
-        //private IQueryable<Recipe> AddSearchTerm(
     }
 }

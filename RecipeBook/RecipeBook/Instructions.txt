@@ -28,17 +28,20 @@ Recipes should be persisted to the database
 + Recipes should be able to be filtered.
 Individual Recipe
 Viewing an individual recipe should be done via either a MVC view or Razor Page.
-At least one operation should be done via Ajax using jQuery
++ At least one operation should be done via Ajax using jQuery
 + Site should use Bootstrap
 + Queries should use Entity Framework
 
 
 TODO
 * Implement all recipe buttons (frontend, test backend)
-    - Should I re-do Open to be the AJAX call?
+    - DELETE, ADD need to be updated to POST in the frontend
+    - Implement adding ingredients in the frontend
+    - Implement the entire Edit functionality
 * Implement adding ingredients (frontend)
 * Consider prompting before allowing the user to delete a recipe
 * Finish restyling the filter control
+* Finish the add preview
 * Review MVC principles
     - Am I using "Shared" correctly?
     - Should I have more Controller endpoints?
@@ -48,3 +51,14 @@ TODO
 *   Double-check CSS and Javascript adherence to best practices (I didn't 
 * The right borders aren't lining up for the second recipe header row for some reason?
    -   They don't line up perfectly between the first and third at some resolutions either
+* Clear out scaffolding
+* Break up CSS into page CSS files
+* Clean up CSS
+* Jazz up action menu more
+* Add styling to Add Recipe view
+* Strongly consider adding newline stuff to all outputs
+
+
+Stretch Goals:
+ * Unit Tests
+ * Data Validation

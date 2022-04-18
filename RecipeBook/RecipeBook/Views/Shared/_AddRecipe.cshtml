@@ -1,29 +1,64 @@
 ﻿@model Recipe
 
-Add New Recipe<br />
-@Html.LabelFor(model => model.Title, "Recipe Title"); @Html.TextBoxFor(model => model.Title, new {  onInput="updatePreview();", onChange="updatePreview();", id="AddTitle" });  <br />
-@Html.LabelFor(model => model.Description, "Description"); @Html.TextBoxFor(model => model.Description, new { onInput="updatePreview();", id="AddDescription"});  <br />
-@Html.LabelFor(model => model.ImageUrl, "Image URL");@Html.TextBoxFor(model => model.ImageUrl, new { onInput="updatePreview();", id="AddImageUrl"});  <br />
-@Html.LabelFor(model => model.Instructions, "Instructions"); <br />
-@Html.TextBoxFor(model => model.Instructions, new { onInput="updatePreview();", id="AddInstructions"});<br />
-@Html.LabelFor(model => model.Instructions)<br />
+Add New Recipe
 <br />
-<br />
-Preview:<br />
-<div id="addRecipePreview">
-<partial name="_RecipeDetail" model=@Model />
-</div>
+
+@using (Html.BeginForm(FormMethod.Get, true, htmlAttributes: new { @class = "", id = "addForm" }))
+{
+    <div class="input-group mb-3">
+        @Html.LabelFor(model => model.Title, "Recipe Title")
+        @Html.TextBoxFor(model => model.Title, new { onInput="refreshPreview();", id="AddTitle" }) <br />
+    </div>
+
+    <div class="input-group mb-3">
+        @Html.LabelFor(model => model.Description, "Description")
+        @Html.TextBoxFor(model => model.Description, new { onInput="refreshPreview();", id="AddDescription"})
+    </div>
+
+    <div class="input-group mb-3">
+        @Html.LabelFor(model => model.ImageUrl, "Image URL")
+        @Html.TextBoxFor(model => model.ImageUrl, new { onInput="refreshPreview();", id="AddImageUrl"})
+        <img id="addImageImg" src="@(!string.IsNullOrWhiteSpace(Model.ImageUrl) ? Model.ImageUrl : "./favicon.ico")" class="img-fluid" />
+    </div>
+
+    <div class="input-group mb-3">
+        @Html.LabelFor(model => model.Instructions, "Instructions")
+        @Html.TextAreaFor(model => model.Instructions, new { onInput="refreshPreview();", id="AddInstructions"})
+    </div>
+
+    <input type="submit" name="Create" value="Add" class="btn btn-primary" />
+    <input type="reset" class="btn btn-secondary" />
+    <button type="button" class="btn btn-secondary" onclick="clearForm($('#addForm'))">Clear</button>
+
+
+
+    <br />
+    <span>Preview:</span>
+    <br />
+    <button type="button" class="btn btn-secondary" onclick="refreshPreview()">Refresh Preview</button>
+
+    <div id="addRecipePreview">
+    </div>
+}
 
 <script>
-    function updatePreview()
-    {
+    function updateIcon(){
         //In a production environment I'd probably build a separate event for all of these.
-        $('#addRecipePreview>.title').text($('#AddTitle').val());
-        $('#addRecipePreview>.description').text($('#AddDescription').val());
-        $('#addRecipePreview>.instructions').text($('#AddInstructions').val());
-
         var newImageUrl = $('#AddImageUrl').val();
-        newImageUrl = !!newImageUrl? newImageUrl : "./favicon.ico";
-        $('#addRecipePreview>.imageUrl').attr('src', newImageUrl);
+        newImageUrl = !!newImageUrl ? newImageUrl : "./favicon.ico";
+        $('#addImageImg').attr('src', newImageUrl);
+    }
+
+    function refreshPreview(){
+        var previewData = $("#addForm").serialize();
+
+        $.ajax({
+            url: "/Recipe/Preview/",
+            type: "GET",
+            data: previewData
+        })
+        .done(function(resultingView){
+            $("#addRecipePreview").html(resultingView);
+        });
     }
 </script>

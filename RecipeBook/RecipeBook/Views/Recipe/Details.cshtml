@@ -5,5 +5,10 @@
 }
 
 @*This lives in a partial because it's also previewed on the Add control.*@
-<partial name="_RecipeDetail" model=@Model />
-<partial name="_RecipeControls" model=navigationConfig />
+<div class="card detailCard">
+    <partial name="_RecipeDetail" model=@Model />
+    @if(Model.Id != default) //Don't include the buttons on an add.
+    {
+        <partial name="_RecipeControls" model=navigationConfig />
+    }
+</div>

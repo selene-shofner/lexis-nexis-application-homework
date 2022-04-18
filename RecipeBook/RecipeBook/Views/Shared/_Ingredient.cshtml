@@ -1,3 +1,5 @@
-﻿@model Ingredient
+﻿@using RecipeBook.Helpers
+@model Ingredient
 
-<div class="ingredientLine">@Model.Quantity @Model.QuantityUnit @Model.Name</div>
+
+<div class="ingredientLine">@Model.Quantity @IngredientFormatter.FormatQuantityUnit(Model) @Model.Name</div>

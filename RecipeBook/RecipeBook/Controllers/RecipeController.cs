@@ -42,8 +42,9 @@ namespace RecipeBook.Controllers
         }
 
 #warning I've got both this and an AJAX-y frontend, pick one and delete the other
-        // GET: RecipeController/Create
-        public ActionResult Create(Recipe? recipe)
+        // POST: RecipeController/Create
+        [HttpPost]
+        public ActionResult Create([FromBody] Recipe? recipe)
         {
             if (recipe == null)
             {
@@ -55,10 +56,17 @@ namespace RecipeBook.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // GET: RecipeController/Preview
+        public ActionResult Preview(Recipe recipe)
+        {
+            return View(recipe);
+        }
+
         // GET: RecipeController/Edit/5
         //using #nullable to make the optional-ness of the searchTerms parameter clearer
 #nullable enable
 
+        [HttpPost]
         public ActionResult Edit(Recipe? recipe)
         {
             if (recipe == null)
@@ -73,23 +81,9 @@ namespace RecipeBook.Controllers
         }
 #nullable disable
 
-        // POST: RecipeController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public ActionResult Delete([FromBody] int id)
         {
             Repository.DeleteRecipe(id);
             return new OkResult();
@@ -179,7 +173,7 @@ namespace RecipeBook.Controllers
 4. Stir stock concentrate and 1/4 cup water into pan with mushroom mixture.  Simmer until slightly thickened, 2-3 minutes.  Remove pan from heat; stir in sour cream, Dijon, and 1 TBSP butter.  Season generously with pepper.
 5. Divie pork and potatoes between plates.  Spoon mushroom sauce over pork.",
                     Description = "Pork Chops in Creamy Dijon Mushroom Sauce, as presented by EveryPlate.  Why EveryPlate crams so much into each 'step' Selene does not know.",
-                    ImageUrl = "https://scontent-lga3-2.xx.fbcdn.net/v/t39.30808-6/272677141_5034770209902044_2846705084396814974_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=9267fe&_nc_ohc=0d9PE-yG238AX9qaPUy&_nc_ht=scontent-lga3-2.xx&oh=00_AT9-69NVVznPnNCwY_0VlTZWuktfChckcTQVdSYU8MS-XQ&oe=625C4071",
+                    ImageUrl = "/everyplate-pork-chops-dijon.png",
                     Ingredients = new List<Ingredient>
                     {
                         new Ingredient{ Name="Pork Chops", Quantity=1, QuantityUnit=QuantityUnit.Count },
