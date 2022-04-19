@@ -20,7 +20,7 @@
                 @Html.LabelFor(model => model.ImageUrl, "Image URL", new {@class="col-auto"})
                 <div class="col row g-0">
                     @Html.TextBoxFor(model => model.ImageUrl, new { onInput="updateIcon(); refreshPreview();", id="addImageUrl", @class="col"})
-                <img id="addImageImg" src="@(!string.IsNullOrWhiteSpace(Model.ImageUrl) ? Model.ImageUrl : "./favicon.ico")" class="img-fluid col-auto" />
+                    <img id="addImageImg" src="@(!string.IsNullOrWhiteSpace(Model.ImageUrl) ? Model.ImageUrl : "./favicon.ico")" class="img-fluid col-auto" />
                 </div>
             </div>
 

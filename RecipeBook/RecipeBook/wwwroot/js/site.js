@@ -4,4 +4,4 @@
 
 function addLineBreaks(targetElementSelector, textToConvert) {
     $(targetElementSelector).html(replaceWindowsNewlinesWithHtmlLinebreaks(textToConvert));
-}
+} 

@@ -2,54 +2,45 @@
 <div class="row">
     <h6>
         Ingredients
-        <button type="button" class="btn btn-secondary" onclick="addIngredient()"><i class="bi bi-plus-circle-fill"></i></button>
+        <button type="button" class="btn btn-secondary" onclick="addIngredient()"><i class="bi bi-plus-circle"></i></button>
     </h6>
 </div>
-<div id="ingredientsBeingAdded" class="row">
-    <div class="cardBody"></div>
-</div>
+    <div class="row card-body" id="ingredientsBeingAdded" ></div>
 
 
 <script type="text/javascript">
                 var newIngredientIndex = 0;
 
-                //var newIngredients = [];
+                var quantityUnits = '@string.Join(",",Enum.GetNames(typeof(QuantityUnit)))';
 
-                var quantityTypes = '@string.Join(",",Enum.GetNames(typeof(QuantityUnit)))';
+                var quantityUnitsArray = quantityUnits.split(",");
 
-                var quantityTypesArray = quantityTypes.split(",");
-
-                var quantityTypesOptions = [];
+                var quantityUnitsOptions = [];
 
                 window.addEventListener("DOMContentLoaded", function(){
-                    $.each(quantityTypesArray, function(indexInArray, value) {
-                        quantityTypesOptions.push('<option value="'+value+'">'+value+'</option>');
+                    $.each(quantityUnitsArray, function(indexInArray, value) {
+                        quantityUnitsOptions.push('<option value="'+value+'">'+value+'</option>');
                     });
                 });
 
                 function removeIngredient(index){
                     $("#ingredient-adder-" + index).remove();
-                    //newIngredients = newIngredients.filter(function(ingredient) { ingredient.index = index; });
+                    refreshPreview();
                 }
 
-                //Selene, look at these references if you forget what's going on here before you work on it next!
-                //https://www.pluralsight.com/guides/asp.net-mvc-getting-default-data-binding-right-for-hierarchical-views
-                //https://stackoverflow.com/questions/737917/all-enum-items-to-string-c
-                //
-                //
                 function addIngredient(){
-                    //newIngredients.push(new {index = newIngredientIndex});
                     $("#ingredientsBeingAdded").append('\
-    <div id="ingredient-adder-' + newIngredientIndex + '" class="ingredient-adder-item row">\
-        <input type="number" id="ingredient-adder-' + newIngredientIndex + '-quantity" name="Ingredients[' + newIngredientIndex + '].Quantity" placeholder="Qty" class="col-2" \> \
-        <select id="ingredient-adder-' + newIngredientIndex + '-quantity-type" name="Ingredients[' + newIngredientIndex + '].QuantityType" placeholder="Qty Type" class="col-3" > \
-            ' + quantityTypesOptions.join('') + '\
+    <div id="ingredient-adder-' + newIngredientIndex + '" class="ingredient-adder-item row"  onInput="refreshPreview();">\
+        <input type="number" id="ingredient-adder-' + newIngredientIndex + '-quantity" name="Ingredients[' + newIngredientIndex + '].Quantity" placeholder="Qty" class="col-2"  onInput="refreshPreview();" \> \
+        <select id="ingredient-adder-' + newIngredientIndex + '-quantity-type" name="Ingredients[' + newIngredientIndex + '].QuantityUnit" placeholder="Qty Unit" class="col-3"  onInput="refreshPreview();" > \
+            ' + quantityUnitsOptions.join('') + '\
         </select>\
-        <input type="textBox" id="ingredient-adder-' + newIngredientIndex + '-name" name="Ingredients[' + newIngredientIndex + '].Name" placeholder="Ingredient Name" class="col-6" \> \
+        <input type="textBox" id="ingredient-adder-' + newIngredientIndex + '-name" name="Ingredients[' + newIngredientIndex + '].Name" placeholder="Ingredient Name" class="col-6"  onInput="refreshPreview();" \> \
         <button type="button" class="btn btn-warning col-1" onclick="removeIngredient(' + newIngredientIndex + ')"><i class="bi bi-trash3-fill"></i></button>\
     </div>\
         ');
 
                     newIngredientIndex++;
+                    refreshPreview();
                 }
 </script>
