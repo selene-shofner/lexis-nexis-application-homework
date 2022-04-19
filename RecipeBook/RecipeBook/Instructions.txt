@@ -35,22 +35,19 @@ Recipes should be persisted to the database
 
 TODO
 * Implement all recipe buttons (frontend, test backend)
-    - DELETE needs to be updated to POST in the frontend
-    - Implement the entire Edit functionality
+    - Implement the entire Edit functionality (I hid the button for now)
 * Consider prompting before allowing the user to delete a recipe
 * Refresh list when deleting a recipe
 * Finish restyling the filter control
 * Review MVC principles
     - Am I using "Shared" correctly?
     - Should I have more Controller endpoints?
-    - Should RecipeList be what it is?
-    - When I'm more awake: did RecipeNavigationConfig make any sense at all?
-    - Frankly to my sleepy brain "At least one operation should be done via Ajax using jQuery" and "use MVC!" feel at odds xD
-*   Double-check CSS and Javascript adherence to best practices (I didn't 
+    - Should RecipeList be what it is?  Maybe some of that state should live elsewhere, or that class should have a different name.
+*   Double-check CSS and Javascript adherence to best practices
 * The right borders aren't lining up for the second recipe header row for some reason?
    -   They don't line up perfectly between the first and third at some resolutions either
 * Clear out scaffolding
-* Break up CSS into page CSS files
+* Break up CSS into page CSS files, when I first started working on this I forgot that was a feature in MVC as well as the frameworks I've been using more recently
 * Clean up CSS
 * Jazz up action menu more, rethink its positioning
 * Make Add Recipe menu pop out from its opening button, reposition it
