@@ -1,45 +1,49 @@
 ﻿@model Recipe
+<div class="card card-body">
+    <h5 class="card-title">Add New Recipe</h5>
 
-Add New Recipe
-<br />
+    @using (Html.BeginForm(FormMethod.Get, true, htmlAttributes: new { @class = "card-body", id = "addForm" }))
+    {
+        <div class="input-group mb-3">
+            @Html.LabelFor(model => model.Title, "Recipe Title")
+            @Html.TextBoxFor(model => model.Title, new { onInput="refreshPreview();", id="AddTitle" }) <br />
+        </div>
 
-@using (Html.BeginForm(FormMethod.Get, true, htmlAttributes: new { @class = "", id = "addForm" }))
-{
-    <div class="input-group mb-3">
-        @Html.LabelFor(model => model.Title, "Recipe Title")
-        @Html.TextBoxFor(model => model.Title, new { onInput="refreshPreview();", id="AddTitle" }) <br />
-    </div>
+        <div class="input-group mb-3">
+            @Html.LabelFor(model => model.Description, "Description")
+            @Html.TextBoxFor(model => model.Description, new { onInput="refreshPreview();", id="AddDescription"})
+        </div>
 
-    <div class="input-group mb-3">
-        @Html.LabelFor(model => model.Description, "Description")
-        @Html.TextBoxFor(model => model.Description, new { onInput="refreshPreview();", id="AddDescription"})
-    </div>
+        <div class="input-group mb-3">
+            @Html.LabelFor(model => model.ImageUrl, "Image URL")
+            @Html.TextBoxFor(model => model.ImageUrl, new { onInput="refreshPreview();", id="AddImageUrl"})
+            <img id="addImageImg" src="@(!string.IsNullOrWhiteSpace(Model.ImageUrl) ? Model.ImageUrl : "./favicon.ico")" class="img-fluid" />
+        </div>
 
-    <div class="input-group mb-3">
-        @Html.LabelFor(model => model.ImageUrl, "Image URL")
-        @Html.TextBoxFor(model => model.ImageUrl, new { onInput="refreshPreview();", id="AddImageUrl"})
-        <img id="addImageImg" src="@(!string.IsNullOrWhiteSpace(Model.ImageUrl) ? Model.ImageUrl : "./favicon.ico")" class="img-fluid" />
-    </div>
+        <div class="input-group mb-3">
+            @Html.LabelFor(model => model.Instructions, "Instructions")
+            @Html.TextAreaFor(model => model.Instructions, new { onInput="refreshPreview();", id="AddInstructions"})
+        </div>
 
-    <div class="input-group mb-3">
-        @Html.LabelFor(model => model.Instructions, "Instructions")
-        @Html.TextAreaFor(model => model.Instructions, new { onInput="refreshPreview();", id="AddInstructions"})
-    </div>
+        <div class="card g-0">
+            <partial name="_IngredientAdderList" , model=@Model.Ingredients />
+        </div>
 
-    <input type="submit" name="Create" value="Add" class="btn btn-primary" />
-    <input type="reset" class="btn btn-secondary" />
-    <button type="button" class="btn btn-secondary" onclick="clearForm($('#addForm'))">Clear</button>
+        <input type="submit" name="Create" value="Add" class="btn btn-primary" />
+        <input type="reset" class="btn btn-secondary" />
+        <button type="button" class="btn btn-secondary" onclick="clearForm($('#addForm'))">Clear</button>
 
 
 
-    <br />
-    <span>Preview:</span>
-    <br />
-    <button type="button" class="btn btn-secondary" onclick="refreshPreview()">Refresh Preview</button>
+        <br />
+        <span>Preview:</span>
+        <br />
+        <button type="button" class="btn btn-secondary" onclick="refreshPreview()">Refresh Preview</button>
 
-    <div id="addRecipePreview">
-    </div>
-}
+        <div id="addRecipePreview">
+        </div>
+    }
+</div>
 
 <script>
     function updateIcon(){

@@ -26,8 +26,8 @@ Recipes should be persisted to the database
 + List of recipes
 + Viewing the list of recipes should be done with ASP.NET Core via MVC view, Razor Page or Ajax call using jQuery. Scaffolding should not be used.
 + Recipes should be able to be filtered.
-Individual Recipe
-Viewing an individual recipe should be done via either a MVC view or Razor Page.
++ Individual Recipe
++ Viewing an individual recipe should be done via either a MVC view or Razor Page.
 + At least one operation should be done via Ajax using jQuery
 + Site should use Bootstrap
 + Queries should use Entity Framework

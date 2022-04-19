@@ -1,27 +1,27 @@
 ﻿@model Recipe
-    <div class="row">
-        <div class="col-6">
-            <partial name="_RecipeHeader" model=Model />
-            <div class="row">
-                <div class="recipeDetailLeft col-11">
-                    Ingredients: <br />
-                    @foreach (Ingredient ingredient in Model.Ingredients)
-                    {
-                        <partial name="_Ingredient" model=ingredient />
-                    }
-                </div>
-                @*<div class="clearfix"></div>*@
+<div class="row">
+    <div class="col-6">
+        <partial name="_RecipeHeader" model=Model />
+        <div class="row">
+            <div class="recipeDetailLeft col-11">
+                Ingredients: <br />
+                @foreach (Ingredient ingredient in Model.Ingredients)
+                {
+                    <partial name="_Ingredient" model=ingredient />
+                }
             </div>
+            @*<div class="clearfix"></div>*@
         </div>
-        <div class="col-6">
-            @*<div class="row"><div class="title">&nbsp</div></div>*@
-            <div class="row">
-                <div class="row recipeDetailRight instructions">
-                    Instructions: <div class="instructionsValue gx-0" id="recipe-@Model.Id-Instructions">Loading...</div>
-                </div>
+    </div>
+    <div class="col-6">
+        @*<div class="row"><div class="title">&nbsp</div></div>*@
+        <div class="row">
+            <div class="row recipeDetailRight instructions">
+                Instructions: <div class="instructionsValue gx-0" id="recipe-@Model.Id-Instructions">Loading...</div>
             </div>
         </div>
     </div>
+</div>
 
 <script type="text/javascript">
     if (document.readyState === "complete" || document.readyState === "loaded") {
@@ -32,9 +32,7 @@
         window.addEventListener("DOMContentLoaded", addLineBreaksToInstructions);
     }
 
-    //TODO: Move to library file!
     function addLineBreaksToInstructions(){
-             $("#recipe-@Model.Id-Instructions").html(replaceWindowsNewlinesWithHtmlLinebreaks("@Model.Instructions"));
-
+        addLineBreaks("#recipe-@Model.Id-Instructions", "@Model.Instructions");
     }
 </script>

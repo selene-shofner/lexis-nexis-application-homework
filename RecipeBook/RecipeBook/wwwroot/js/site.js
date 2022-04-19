@@ -2,6 +2,6 @@
     return value.replace(/\r\n/g, "<br />").replace(/&#xD;&#xA;/g, "<br />");
 }
 
-function formatQuantity(quantity, quantityUnit, ) {
-
+function addLineBreaks(targetElementSelector, textToConvert) {
+    $(targetElementSelector).html(replaceWindowsNewlinesWithHtmlLinebreaks(textToConvert));
 }

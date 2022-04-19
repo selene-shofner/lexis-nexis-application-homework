@@ -1,0 +1,7 @@
+﻿@model IngredientBeingAdded
+
+@Html.TextBoxFor(model => model.Quantity, new {placeholder = "Quantity"})
+@Html.DropDownListFor(model => model.QuantityUnit, @Html.GetEnumSelectList<QuantityUnit>(), new {placeholder = "Quantity Type"})
+@Html.TextBoxFor(model => model.Name, new {placeholder = "Item Name"});
+
+<button type="button" class="btn btn-warning" onclick="removeIngredient(@Model.NewIngredientIndex)"><i class="bi bi-trash3-fill"></i></button>
