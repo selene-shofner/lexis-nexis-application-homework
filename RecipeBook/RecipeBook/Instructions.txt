@@ -35,13 +35,11 @@ Recipes should be persisted to the database
 
 TODO
 * Implement all recipe buttons (frontend, test backend)
-    - DELETE, ADD need to be updated to POST in the frontend
-    - Implement adding ingredients in the frontend
+    - DELETE needs to be updated to POST in the frontend
     - Implement the entire Edit functionality
-* Implement adding ingredients (frontend)
 * Consider prompting before allowing the user to delete a recipe
+* Refresh list when deleting a recipe
 * Finish restyling the filter control
-* Finish the add preview
 * Review MVC principles
     - Am I using "Shared" correctly?
     - Should I have more Controller endpoints?
@@ -54,8 +52,8 @@ TODO
 * Clear out scaffolding
 * Break up CSS into page CSS files
 * Clean up CSS
-* Jazz up action menu more
-* Add styling to Add Recipe view
+* Jazz up action menu more, rethink its positioning
+* Make Add Recipe menu pop out from its opening button, reposition it
 * Strongly consider adding newline stuff to all outputs
 
 

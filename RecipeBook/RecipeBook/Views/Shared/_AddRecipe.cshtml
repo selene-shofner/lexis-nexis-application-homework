@@ -4,7 +4,7 @@
         <h5 class="card-title">Add New Recipe</h5>
     </div>
     <div class="row">
-        @using (Html.BeginForm(FormMethod.Get, true, htmlAttributes: new { @class = "card-body", id = "addForm" }))
+        @using (Html.BeginForm("Create", "Recipe", FormMethod.Post, htmlAttributes: new { @class = "card-body", id = "addForm", enctype="multipart/form-data" }))
         {
             <div class="input-group mb-3 row">
                 @Html.LabelFor(model => model.Title, "Recipe Title", new {@class="col-auto"})

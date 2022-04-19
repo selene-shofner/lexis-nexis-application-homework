@@ -3,7 +3,12 @@
     <div class="btn-group recipeControls col-12">
         @if (Model.NavigateToSingleOrList == NavigateToSingleOrList.Single) @Html.ActionLink("Open", "Details", "Recipe", new { Model.Recipe.Id }, new { @class = "btn btn-secondary" })
         @if (Model.NavigateToSingleOrList == NavigateToSingleOrList.List) @Html.ActionLink("List", "Index", "Recipe", new { }, new { @class = "btn btn-secondary" })
-        @Html.ActionLink("Edit","Edit","Recipe",new { Model.Recipe.Id },new { @class = "btn btn-secondary" })
-        @Html.ActionLink("Delete","Delete","Recipe",new { Model.Recipe.Id },new { @class = "btn btn-danger" })
+        @* Not yet implemented: @Html.ActionLink("Edit", "Edit", "Recipe", new { Model.Recipe.Id }, new { @class = "btn btn-secondary" })*@
+        @using (Html.BeginForm("Delete", "Recipe", FormMethod.Post, htmlAttributes: new {enctype="multipart/form-data", @class="g-0" }))
+        {
+            <input type="hidden" name="Id" value="@Model.Recipe.Id" />
+            <input type="submit" value="Delete" frommethod="post" class="btn btn-danger"  />
+        @*@Html.ActionLink("Delete", "Delete", "Recipe", new { Model.Recipe.Id }, new { @class = "btn btn-danger" })*@
+        }
     </div>
 </div>

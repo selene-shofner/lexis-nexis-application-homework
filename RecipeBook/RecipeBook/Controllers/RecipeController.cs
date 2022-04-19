@@ -44,14 +44,15 @@ namespace RecipeBook.Controllers
 #warning I've got both this and an AJAX-y frontend, pick one and delete the other
         // POST: RecipeController/Create
         [HttpPost]
-        public ActionResult Create([FromBody] Recipe? recipe)
+        public ActionResult Create([FromForm] Recipe? recipe)
         {
             if (recipe == null)
             {
                 return View(recipe);
             }
 
-            var viewRecipe = Mapper.Map<Models.Recipe, Repository.Entities.Recipe>(recipe);
+            var domainRecipe = Mapper.Map<Models.Recipe, Repository.Entities.Recipe>(recipe);
+            Repository.AddRecipe(domainRecipe);
 
             return RedirectToAction(nameof(Index));
         }
@@ -83,7 +84,7 @@ namespace RecipeBook.Controllers
 
 
         [HttpPost]
-        public ActionResult Delete([FromBody] int id)
+        public ActionResult Delete([FromForm] int id)
         {
             Repository.DeleteRecipe(id);
             return new OkResult();

@@ -77,6 +77,10 @@ body {
         margin: 2px;
     }
 
+    .recipeControls > form {
+        margin: 2px;
+    }
+
 .recipeDetailLeft {
     background-color: beige;
     /*border-left: 3px solid khaki;
